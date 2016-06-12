@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/media-playback-pause.png</file>
+        <file>images/media-playback-start.png</file>
+        <file>images/media-skip-backward.png</file>
+        <file>images/media-skip-forward.png</file>
+        <file>images/audio-volume-medium.png</file>
+        <file>images/audio-volume-medium-inverted.png</file>
+    </qresource>
+</RCC>
