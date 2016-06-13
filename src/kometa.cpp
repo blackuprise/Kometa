@@ -30,6 +30,9 @@ Kometa::Kometa(QWidget *parent)
 	settings = new QSettings();
 	restoreGeometry(settings->value("window/geometry").toByteArray());
 	restoreState(settings->value("window/state").toByteArray());
+    if (settings->contains("bookmarks")) {
+        //mediaPlayer->setBookmarks(settings->value("application/bookmarks"));
+    }
 
 	// Setup Icons.
 	PLAY_IMAGE = new QImage(QString::fromUtf8(":/images/images/audio-volume-medium.png"));
@@ -40,6 +43,7 @@ Kometa::Kometa(QWidget *parent)
 	connect(ui.actionAdd_media, SIGNAL(triggered()), this, SLOT(addMedia()));
 	connect(ui.lvSongs, SIGNAL(doubleclicked()), this, SLOT(playSelected()));
     connect(ui.btClear, SIGNAL(clicked()), this, SLOT(clearList()));
+    connect(ui.btBookmark, SIGNAL(clicked()), this, SLOT(addToBookmark()));
 	connect(timer, SIGNAL(timeout()), this, SLOT(updateSongInfo()));
 }
 
@@ -49,6 +53,10 @@ Kometa::~Kometa()
 	settings->setValue("geometry", saveGeometry());
 	settings->setValue("state", saveState());
 	settings->endGroup();
+    settings->beginGroup("application");
+    //settings->setValue("bookmarks", NULL);
+    settings->endGroup();
+
 	mediaPlayer->stop();
 	timer->stop();
 	delete PLAY_IMAGE;
@@ -137,6 +145,9 @@ void Kometa::showSongBalloon(Song* song)
 MediaPlayer* Kometa::getMediaPlayer()
 {
 	return mediaPlayer;
+}
+void Kometa::addToBookmark() {
+   mediaPlayer->addToBookmarks(mediaPlayer->getCurrentDir());
 }
 
 void Kometa::clearList()

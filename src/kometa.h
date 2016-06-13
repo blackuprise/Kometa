@@ -33,6 +33,7 @@ public slots:
     void addMedia();
     void showSongBalloon(Song* song);
     void clearList();
+    void addToBookmark();
     MediaPlayer* getMediaPlayer();
 
 private slots:

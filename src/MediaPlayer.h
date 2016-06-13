@@ -40,6 +40,8 @@ private:
 	ISoundStopEventReceiver* soundEventReceiver;
 
 	// Song repository
+    QString currentDir;
+    QList<QString> *bookmarks;
 	QHash<QString, Song*> *songList;
 	QList<Song*>* displayList;
 
@@ -63,6 +65,9 @@ public:
 
     float getCurrentSongPercent();
     void clearSongList();
+    QString getCurrentDir();
+    void setBookmarks(QStringList *list);
+    void addToBookmarks(QString dirName);
 };
 
 #endif /* MEDIAPLAYER_H_ */

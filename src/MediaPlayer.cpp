@@ -17,6 +17,7 @@ MediaPlayer::MediaPlayer() {
 	soundEventReceiver = new SoundEventReceiver();
 	songList = new QHash<QString, Song*>();
 	displayList = new QList<Song*>();
+    bookmarks = new QList<QString>();
 }
 
 MediaPlayer::~MediaPlayer() {
@@ -24,12 +25,13 @@ MediaPlayer::~MediaPlayer() {
 	delete soundEventReceiver;
 	delete songList;
 	delete displayList;
+    delete bookmarks;
 }
 
 void MediaPlayer::play(QString filePath)
 {
 	Song* songToPlay = songList->value(filePath);
-        play(songToPlay);
+    play(songToPlay);
 }
 
 void MediaPlayer::play(Song* song) {
@@ -149,11 +151,28 @@ void MediaPlayer::addMediaDir(QString dirPath)
 	}
 	delete filters;
 	delete dir;
+    currentDir = dirPath;
 }
 
 QList<Song*>* MediaPlayer::getSongList()
 {
 	return displayList;
+}
+
+QString MediaPlayer::getCurrentDir()
+{
+    return currentDir;
+}
+
+void MediaPlayer::setBookmarks(QStringList *list)
+{
+    if (list != NULL) {
+        // TODO
+    }
+}
+
+void MediaPlayer::addToBookmarks(QString dirName) {
+    bookmarks->append(dirName);
 }
 
 bool MediaPlayer::isFinished()
