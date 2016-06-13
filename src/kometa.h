@@ -32,7 +32,11 @@ public slots:
     void updateSongInfo();
     void addMedia();
     void showSongBalloon(Song* song);
+    void clearList();
     MediaPlayer* getMediaPlayer();
+
+private slots:
+    void on_btPlay_clicked();
 
 private:
     Ui::KometaClass ui;

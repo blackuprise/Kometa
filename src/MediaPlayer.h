@@ -55,13 +55,14 @@ public:
 	void next();
 	void prev();
 	QString getCurrentTime();
-    int currentSongPercent = 0;
+    float currentSongPercent = 0;
 	Song* getCurrentSong();
 	void addMediaDir(QString dirPath);
 	QList<Song*>* getSongList();
 	bool isFinished();
 
-    int getCurrentSongPercent();
+    float getCurrentSongPercent();
+    void clearSongList();
 };
 
 #endif /* MEDIAPLAYER_H_ */

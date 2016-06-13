@@ -59,7 +59,7 @@ void MediaPlayer::pause()
 	currentSound->setIsPaused(true);
 }
 
-int MediaPlayer::getCurrentSongPercent()
+float MediaPlayer::getCurrentSongPercent()
 {
     return currentSongPercent;
 }
@@ -83,22 +83,8 @@ QString MediaPlayer::getCurrentTime()
     currentSongPercent = ((float) currentSeconds) / ((float) totalSeconds) * 100;
 	::snprintf(currentTime, 18, "%.2d:%.2d/%.2d:%.2d", currentMinute,
 			currentSecond, totalMinute, totalSecond);
-    qDebug() << "Percent: " << currentSongPercent;
 	return currentTime;
 }
-
-//int MediaPlayer::getCurrentPercent() {
-//    ik_u32 position = 0;
-//    ik_u32 total = 0;
-//    if (currentSound)
-//    {
-//        position = currentSound->getPlayPosition();
-//        total = currentSound->getPlayLength();
-//        return position / total * 100;
-//    } else {
-//        return 0;
-//    }
-//}
 
 Song* MediaPlayer::getCurrentSong()
 {
@@ -108,12 +94,14 @@ Song* MediaPlayer::getCurrentSong()
 void MediaPlayer::next()
 {
 	int currentIndex = displayList->indexOf(currentSong);
-	if (currentIndex != displayList->size() - 1)
-	{
-		play(displayList->at(++currentIndex)->getPath());
-	} else {
-		currentSong = NULL;
-	}
+    if (currentIndex != -1) {
+        if (currentIndex != displayList->size() - 1)
+        {
+            play(displayList->at(++currentIndex)->getPath());
+        } else {
+            currentSong = NULL;
+        }
+    }
 }
 
 QString MediaPlayer::getMp3TagFieldById(ID3_Tag mp3Tag, ID3_FrameID frameId)
@@ -171,4 +159,11 @@ QList<Song*>* MediaPlayer::getSongList()
 bool MediaPlayer::isFinished()
 {
 	return currentSound->isFinished();
+}
+
+
+void MediaPlayer::clearSongList()
+{
+    displayList->clear();
+    return songList->clear();
 }

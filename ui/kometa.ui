@@ -66,6 +66,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="btPlay">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>48</height>
+         </size>
+        </property>
         <property name="baseSize">
          <size>
           <width>0</width>
@@ -136,9 +142,41 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btAdd">
+       <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>Add folder</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/kometa_resource.qrc">
+          <normaloff>:/images/images/bookmarks_list_add.png</normaloff>:/images/images/bookmarks_list_add.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btAdd">
+        <property name="toolTip">
+         <string>Add folder to the list</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/kometa_resource.qrc">
+          <normaloff>:/images/images/folder-new.png</normaloff>:/images/images/folder-new.png</iconset>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btClear">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/kometa_resource.qrc">
+          <normaloff>:/images/images/editclear.png</normaloff>:/images/images/editclear.png</iconset>
         </property>
        </widget>
       </item>
@@ -181,7 +219,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,250,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,150,0">
         <property name="leftMargin">
          <number>10</number>
         </property>
@@ -381,10 +419,16 @@ background: white;
    <property name="text">
     <string>Add media...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
    </property>
   </action>
   <action name="actionKometa">
@@ -392,27 +436,22 @@ background: white;
     <string>Kometa</string>
    </property>
   </action>
+  <action name="actionActionClearList">
+   <property name="text">
+    <string>actionClearList</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear song list</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../resources/kometa_resource.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>btAdd</sender>
-   <signal>clicked()</signal>
-   <receiver>actionAdd_media</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>389</x>
-     <y>52</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>lvSongs</sender>
    <signal>doubleClicked(QModelIndex)</signal>
@@ -426,6 +465,22 @@ background: white;
     <hint type="destinationlabel">
      <x>61</x>
      <y>52</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btAdd</sender>
+   <signal>clicked()</signal>
+   <receiver>actionAdd_media</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

@@ -39,6 +39,7 @@ Kometa::Kometa(QWidget *parent)
 	connect(ui.btNext, SIGNAL(clicked()), this, SLOT(next()));
 	connect(ui.actionAdd_media, SIGNAL(triggered()), this, SLOT(addMedia()));
 	connect(ui.lvSongs, SIGNAL(doubleclicked()), this, SLOT(playSelected()));
+    connect(ui.btClear, SIGNAL(clicked()), this, SLOT(clearList()));
 	connect(timer, SIGNAL(timeout()), this, SLOT(updateSongInfo()));
 }
 
@@ -64,8 +65,17 @@ void Kometa::play()
 
 void Kometa::playSelected()
 {
+    if (!ui.lvSongs->model()->hasChildren()) {
+        return;
+    }
 	QModelIndexList selected = ui.lvSongs->selectionModel()->selectedIndexes();
-	Song* songToPlay = static_cast<SongItem*>(songItemModel->itemFromIndex(selected[0]))->getSong();
+    Song* songToPlay = NULL;
+    if (!selected.isEmpty()) {
+        songToPlay = static_cast<SongItem*>(songItemModel->itemFromIndex(selected[0]))->getSong();
+    } else {
+        songToPlay = static_cast<SongItem*>(songItemModel->item(0, 0))->getSong();
+    }
+
 	mediaPlayer->play(songToPlay);
     qDebug() << tr("Playing: ") << songToPlay->getArtist() << " " << songToPlay->getTitle();
 	timer->start();
@@ -118,11 +128,25 @@ QStandardItemModel* Kometa::getSongViewModel()
 
 void Kometa::showSongBalloon(Song* song)
 {
-	trayIcon->showMessage(tr("Playing..."), song->getArtist() + " - "
-			+ song->getTitle(), QSystemTrayIcon::Information, 4000);
+    if (song != NULL) {
+        trayIcon->showMessage(tr("Playing..."), song->getArtist() + " - "
+                + song->getTitle(), QSystemTrayIcon::Information, 4000);
+    }
 }
 
 MediaPlayer* Kometa::getMediaPlayer()
 {
 	return mediaPlayer;
+}
+
+void Kometa::clearList()
+{
+    mediaPlayer->clearSongList();
+    songItemModel->clear();
+    mediaPlayer->stop();
+}
+
+void Kometa::on_btPlay_clicked()
+{
+
 }

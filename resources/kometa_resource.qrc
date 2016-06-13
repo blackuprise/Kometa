@@ -6,5 +6,8 @@
         <file>images/media-skip-forward.png</file>
         <file>images/audio-volume-medium.png</file>
         <file>images/audio-volume-medium-inverted.png</file>
+        <file>images/editclear.png</file>
+        <file>images/folder-new.png</file>
+        <file>images/bookmarks_list_add.png</file>
     </qresource>
 </RCC>
